@@ -1,7 +1,4 @@
 package com.stake;
-// Fixed import statement
-import com.mongodb.client.model.Filters;
-
 import org.bson.Document;
 import java.util.List;
 import java.util.Scanner;

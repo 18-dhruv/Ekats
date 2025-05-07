@@ -1,38 +1,48 @@
 package com.stake;
+
 import java.util.Scanner;
 
 public class Main {
+
+    // ANSI color codes
+    public static final String RESET = "\u001B[0m";
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String CYAN = "\u001B[36m";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Authentication auth = new Authentication();
         Game game = new Game();
         Admin admin = new Admin();
         MongoDBHandler dbHandler = auth.getDbHandler();
-        
+
         // Test MongoDB connection at startup
         try {
             boolean connected = dbHandler.testConnection();
             if (connected) {
-                System.out.println("MongoDB connection established successfully!");
+                System.out.println(GREEN + "MongoDB connection established successfully!" + RESET);
             } else {
-                System.out.println("Failed to establish MongoDB connection. The application will use local storage only.");
+                System.out.println(RED + "Failed to establish MongoDB connection. The application will use local storage only." + RESET);
             }
         } catch (Exception e) {
-            System.out.println("MongoDB connection error: " + e.getMessage());
-            System.out.println("The application will use local storage only.");
+            System.out.println(RED + "MongoDB connection error: " + e.getMessage() + RESET);
+            System.out.println(YELLOW + "The application will use local storage only." + RESET);
         }
 
         try {
             while (true) {
-                System.out.println("\n=== CASINO GAME MENU ===");
+                System.out.println(CYAN + "\n=== CASINO GAME MENU ===" + RESET);
                 System.out.println("1. Signup\n2. Login\n3. Admin: View Transactions\n4. Exit");
                 System.out.print("Enter your choice: ");
-                
+
                 int choice;
                 try {
                     choice = scanner.nextInt();
                 } catch (Exception e) {
-                    System.out.println("Please enter a valid number.");
+                    System.out.println(RED + "Please enter a valid number." + RESET);
                     scanner.nextLine(); // Clear the invalid input
                     continue;
                 }
@@ -49,21 +59,20 @@ public class Main {
                         }
                         break;
                     case 3:
-                        // Fixed: Pass all required parameters to viewTransactions
                         admin.viewTransactions(scanner, dbHandler, auth);
                         break;
                     case 4:
-                        System.out.println("Thank you for playing. Exiting...");
+                        System.out.println(GREEN + "Thank you for playing. Exiting..." + RESET);
                         return;
                     default:
-                        System.out.println("Invalid choice. Please try again.");
+                        System.out.println(RED + "Invalid choice. Please try again." + RESET);
                 }
             }
         } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
+            System.out.println(RED + "An error occurred: " + e.getMessage() + RESET);
             e.printStackTrace();
         } finally {
-            System.out.println("Closing resources...");
+            System.out.println(YELLOW + "Closing resources..." + RESET);
             dbHandler.close();
             scanner.close();
         }
