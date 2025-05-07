@@ -1,3 +1,4 @@
+package com.stake;
 public class User {
     private String username;
     private String password;

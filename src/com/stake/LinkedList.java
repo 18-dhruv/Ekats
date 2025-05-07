@@ -1,3 +1,4 @@
+package com.stake;
 public class LinkedList {
     public Node head;
 

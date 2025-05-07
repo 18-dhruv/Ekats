@@ -13,37 +13,37 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongodb-driver-sync</artifactId>
-            <version>5.2.0</version>
-        </dependency>
+ <dependencies>
+    <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongodb-driver-sync</artifactId>
+        <version>5.2.0</version> <!-- Use the correct version here -->
+    </dependency>
 
-        <!-- SLF4J API -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.32</version>
-        </dependency>
+    <!-- SLF4J API -->
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>1.7.32</version>
+    </dependency>
 
-        <!-- SLF4J Simple Binding (for basic console logging) -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.32</version>
-        </dependency>
-    </dependencies>
-
+    <!-- SLF4J Simple Binding (for basic console logging) -->
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>1.7.32</version>
+    </dependency>
+</dependencies>
     <build>
-        <sourceDirectory>src</sourceDirectory>
+        <sourceDirectory>src</sourceDirectory> <!-- Ensure source folder is correctly set -->
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.5.0</version>
                 <configuration>
-                    <mainClass>Main</mainClass>
+                    <!-- Specify the fully qualified name of your main class -->
+                    <mainClass>com.stake.Main</mainClass> <!-- Update this if Main.java is in a package -->
                 </configuration>
             </plugin>
         </plugins>

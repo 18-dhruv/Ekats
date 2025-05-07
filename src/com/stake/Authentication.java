@@ -1,3 +1,4 @@
+package com.stake;
 
 
 import java.util.Scanner;
