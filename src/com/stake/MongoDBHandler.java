@@ -4,6 +4,7 @@ import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import org.bson.Document;
+import com.mongodb.client.result.DeleteResult;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -125,7 +126,7 @@ public class MongoDBHandler {
         }
     }
 
-    public void deleteUser(String username) {
+    public void deleteUserByUsername(String username) {
         try {
             if (mongoClient == null) {
                 System.out.println(RED + "MongoDB client not initialized - user not deleted" + RESET);
@@ -225,6 +226,27 @@ public class MongoDBHandler {
             e.printStackTrace();
         }
         return stats;
+    }
+    public boolean deleteUser(String username) {
+        try {
+            if (mongoClient == null) {
+                System.out.println(RED + "MongoDB client not initialized - user not deleted" + RESET);
+                return false;
+            }
+
+            DeleteResult result = usersCollection.deleteOne(Filters.eq("username", username));
+            if (result.getDeletedCount() > 0) {
+                System.out.println(YELLOW + "User deleted: " + username + RESET);
+                return true;
+            } else {
+                System.out.println(RED + "User not found: " + username + RESET);
+                return false;
+            }
+        } catch (Exception e) {
+            System.err.println(RED + "Error deleting user: " + e.getMessage() + RESET);
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public void close() {

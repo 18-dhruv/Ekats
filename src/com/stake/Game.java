@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Game {
 
-    // ANSI color codes
     private static final String RESET = "\u001B[0m";
     private static final String GREEN = "\u001B[32m";
     private static final String RED = "\u001B[31m";
@@ -14,8 +13,8 @@ public class Game {
     public void playGame(Scanner scanner, User user, MongoDBHandler dbHandler) {
         while (true) {
             System.out.println(CYAN + "\n🎮 Welcome, " + user.getUsername() + "! Your balance is: " + GREEN + user.getBalance() + RESET);
-            System.out.println(YELLOW + "Select a game to play:" + RESET);
-            System.out.println("1. Coin Flip\n2. Dice Roll\n3. High-Low\n4. Logout");
+            System.out.println(YELLOW + "Select an option:" + RESET);
+            System.out.println("1. Coin Flip\n2. Dice Roll\n3. High-Low\n4. Logout\n5. Delete Account");
 
             int choice;
             try {
@@ -47,6 +46,17 @@ public class Game {
                 case 4:
                     System.out.println(CYAN + "👋 Logging out..." + RESET);
                     return;
+                case 5:
+                    System.out.print(RED + "⚠️ Are you sure you want to delete your account? (yes/no): " + RESET);
+                    String confirmation = scanner.nextLine().trim().toLowerCase();
+                    if (confirmation.equals("yes")) {
+                        dbHandler.deleteUser(user.getUsername());
+                        System.out.println(GREEN + "✅ Your account has been deleted. Goodbye!" + RESET);
+                        return;
+                    } else {
+                        System.out.println(YELLOW + "❗ Account deletion cancelled." + RESET);
+                    }
+                    break;
                 default:
                     System.out.println(RED + "❌ Invalid choice. Please try again." + RESET);
             }
